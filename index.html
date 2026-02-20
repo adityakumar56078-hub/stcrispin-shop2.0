@@ -141,10 +141,63 @@
         <ul id="cart-items"></ul>
         <h3>Total: ₹<span id="total">0</span></h3>
     </div>
+<!-- Add this below your cart section in index.html -->
 
-    <!-- Cart Script -->
+<!-- Checkout Button -->
+<div style="text-align:center; margin-top:20px;">
+    <button onclick="proceedToCheckout()" style="background:#2980b9; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">Proceed to Checkout</button>
+</div>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:12px; width:90%; max-width:400px; text-align:center;">
+        <h2>Checkout</h2>
+        <ul id="checkout-items" style="list-style:none; padding:0; text-align:left;"></ul>
+        <h3>Total: ₹<span id="checkout-total">0</span></h3>
+        <button onclick="payNow()" style="background:#27ae60; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">Pay Now</button>
+        <button onclick="closeCheckout()" style="background:#e74c3c; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; margin-left:10px;">Cancel</button>
+    </div>
+</div>
+
+<script>
+function proceedToCheckout() {
+    if(cartItems.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Populate checkout items
+    let list = document.getElementById("checkout-items");
+    list.innerHTML = "";
+    let total = 0;
+    cartItems.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = `${item.name} - ₹${item.price}`;
+        list.appendChild(li);
+        total += item.price;
+    });
+
+    document.getElementById("checkout-total").textContent = total;
+
+    // Show modal
+    document.getElementById("checkoutModal").style.display = "flex";
+}
+
+function closeCheckout() {
+    document.getElementById("checkoutModal").style.display = "none";
+}
+
+function payNow() {
+    // Mock payment process
+    alert("Payment successful! Thank you for your purchase.");
+    cartItems = [];
+    renderCart();
+    closeCheckout();
+}
+</script>
+       
     <script>
-        let cartItems = [];
+    let cartItems = [];
 
         function addToCart(product, price) {
             cartItems.push({name: product, price: price});
