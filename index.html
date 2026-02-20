@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>St Crispins School Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 180px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        .card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .card button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .card button:hover {
+            background: #2ecc71;
+        }
+        #cart {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        #cart ul {
+            list-style: none;
+            padding: 0;
+        }
+        #cart li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        #cart li button {
+            background: #e74c3c;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        #cart li button:hover {
+            background: #c0392b;
+        }
+        #total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>St Crispins School Shop</h1>
+
+    <div class="products">
+        <!-- School Bag -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=Bag" alt="School Bag">
+            <h3>School Bag</h3>
+            <p>₹400</p>
+            <button onclick="addToCart('School Bag',400)">Add to Cart</button>
+        </div>
+
+        <!-- Shirt -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=Shirt" alt="Shirt">
+            <h3>Shirt</h3>
+            <p>₹1200</p>
+            <button onclick="addToCart('Shirt',1200)">Add to Cart</button>
+        </div>
+
+        <!-- Trouser -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=Trouser" alt="Trouser">
+            <h3>Trouser</h3>
+            <p>₹3000</p>
+            <button onclick="addToCart('Trouser',3000)">Add to Cart</button>
+        </div>
+
+        <!-- ID Card -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=ID" alt="ID Card">
+            <h3>ID Card</h3>
+            <p>₹100</p>
+            <button onclick="addToCart('ID Card',100)">Add to Cart</button>
+        </div>
+
+        <!-- Watch -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=Watch" alt="Watch">
+            <h3>Watch</h3>
+            <p>₹4000</p>
+            <button onclick="addToCart('Watch',4000)">Add to Cart</button>
+        </div>
+
+        <!-- T-Shirt -->
+        <div class="card">
+            <img src="https://via.placeholder.com/120?text=T-Shirt" alt="T-Shirt">
+            <h3>T-Shirt</h3>
+            <p>₹2000</p>
+            <button onclick="addToCart('T-Shirt',2000)">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div id="cart">
+        <h2>Cart</h2>
+        <ul id="cart-items"></ul>
+        <h3>Total: ₹<span id="total">0</span></h3>
+    </div>
+
+    <!-- Cart Script -->
+    <script>
+        let cartItems = [];
+
+        function addToCart(product, price) {
+            cartItems.push({name: product, price: price});
+            renderCart();
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            renderCart();
+        }
+
+        function renderCart() {
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                let li = document.createElement("li");
+                li.textContent = `${item.name} - ₹${item.price}`;
+
+                let removeBtn = document.createElement("button");
+                removeBtn.textContent = "Remove";
+                removeBtn.onclick = () => removeFromCart(index);
+
+                li.appendChild(removeBtn);
+                cartList.appendChild(li);
+
+                total += item.price;
+            });
+
+            document.getElementById("total").textContent = total;
+        }
+    </script>
+</body>
+</html>
