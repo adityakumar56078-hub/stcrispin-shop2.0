@@ -140,14 +140,15 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
 <script>
-// Firebase config
+// ✅ New Firebase config for project 'new-store-17c1b'
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "phone-number-a7cde.firebaseapp.com",
-  projectId: "phone-number-a7cde",
-  storageBucket: "phone-number-a7cde.firebasestorage.app",
-  messagingSenderId: "759284052900",
-  appId: "1:759284052900:web:a8e57beedd905ac0e1c731"
+  apiKey: "AIzaSyBWzSsSIsxK1v43mDwa_lOZBsKIRfi0E04",
+  authDomain: "new-store-17c1b.firebaseapp.com",
+  projectId: "new-store-17c1b",
+  storageBucket: "new-store-17c1b.firebasestorage.app",
+  messagingSenderId: "848953372",
+  appId: "1:848953372:web:d5500f98b4a4f2d2839fd9",
+  measurementId: "G-9BYMD7YZEV"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -155,26 +156,10 @@ const auth = firebase.auth();
 
 // Products with Images
 const productsData = [
-  {
-    name:'Bag', 
-    price:4,
-    image:'https://safaribags.com/cdn/shop/files/2_3d6acc65-50a9-4d45-b83c-31bb315d7b05_1024x.jpg?v=1707731912'
-  },
-  {
-    name:'T-Shirt', 
-    price:4000,
-    image:'https://via.placeholder.com/200'
-  },
-  {
-    name:'Shirt', 
-    price:5000,
-    image:'https://5.imimg.com/data5/SELLER/Default/2025/6/519428872/UP/BC/OT/17727649/school-uniform-shirt.jpg'
-  },
-  {
-    name:'Pen', 
-    price:400,
-    image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5vt1mHny-94YZluKXizEPD-S5eKQcCmxxA&s'
-  },
+  { name:'Bag', price:4, image:'https://safaribags.com/cdn/shop/files/2_3d6acc65-50a9-4d45-b83c-31bb315d7b05_1024x.jpg?v=1707731912' },
+  { name:'T-Shirt', price:4000, image:'https://via.placeholder.com/200' },
+  { name:'Shirt', price:5000, image:'https://5.imimg.com/data5/SELLER/Default/2025/6/519428872/UP/BC/OT/17727649/school-uniform-shirt.jpg' },
+  { name:'Pen', price:400, image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5vt1mHny-94YZluKXizEPD-S5eKQcCmxxA&s' },
   { name:'Books', price:6000, image:'https://via.placeholder.com/200' },
   { name:'Trouser', price:3000, image:'https://via.placeholder.com/200' },
   { name:'Pants', price:2000, image:'https://via.placeholder.com/200' }
@@ -198,29 +183,15 @@ function renderProducts() {
   });
 }
 
-function addToCart(index){
-  cart.push(productsData[index]);
-  renderCart();
-}
-
-function removeFromCart(index){
-  cart.splice(index,1);
-  renderCart();
-}
-
+function addToCart(index){ cart.push(productsData[index]); renderCart(); }
+function removeFromCart(index){ cart.splice(index,1); renderCart(); }
 function renderCart(){
-  const cartDiv = document.getElementById('cartItems');
-  cartDiv.innerHTML='';
+  const cartDiv = document.getElementById('cartItems'); cartDiv.innerHTML='';
   cart.forEach((item,i)=>{
-    const div = document.createElement('div');
-    div.className='cart-item';
-    div.innerHTML = `
-      <span>${item.name} - ₹${item.price}</span>
-      <button onclick="removeFromCart(${i})">Remove</button>
-    `;
+    const div = document.createElement('div'); div.className='cart-item';
+    div.innerHTML = `<span>${item.name} - ₹${item.price}</span><button onclick="removeFromCart(${i})">Remove</button>`;
     cartDiv.appendChild(div);
   });
-
   const subtotal = cart.reduce((sum,i)=>sum+i.price,0);
   document.getElementById('subtotal').innerText=subtotal;
 }
@@ -233,10 +204,7 @@ function payNow(){
 }
 
 // Firebase Phone Auth
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-  'recaptcha-container',
-  { size: 'invisible' }
-);
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { size: 'invisible' });
 
 function sendOTP() {
   const phoneNumber = document.getElementById("phoneNumber").value;
